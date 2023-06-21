@@ -1,5 +1,10 @@
-import { FeedbackBtns } from './FeedbackBtns/FeedbackBtns';
+import { Feedback } from './Feedback/Feedback';
 
 export const App = () => {
-  return <FeedbackBtns />;
+  return (
+    <>
+      <h1>Please leave feedback</h1>
+      <Feedback />
+    </>
+  );
 };
