@@ -40,6 +40,7 @@ export class Feedback extends Component {
             key={crypto.randomUUID()}
             onClick={() => {
               this.leaveGoodReview();
+              console.log(1);
             }}
           >
             Good
