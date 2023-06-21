@@ -12,7 +12,7 @@ export class Feedback extends Component {
     neutral: 0,
     bad: 0,
   };
-  total = this.state.good + this.state.bad + this.state.neutral;
+  total = 0;
   leaveGoodReview = () => {
     this.setState(prevState => ({
       good: prevState.good + 1,
