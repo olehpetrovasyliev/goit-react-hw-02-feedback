@@ -61,27 +61,31 @@ export class Feedback extends Component {
             Bad
           </StyledButton>
         </FlexWrapper>
-        <h2>Statstics</h2>
-        <StatsInfoList key={crypto.randomUUID()}>
-          <StatsInfoItem key={crypto.randomUUID()}>
-            Goog: {this.state.good}
-          </StatsInfoItem>
-          <StatsInfoItem key={crypto.randomUUID()}>
-            Neutral: {this.state.neutral}
-          </StatsInfoItem>
-          <StatsInfoItem key={crypto.randomUUID()}>
-            Bad: {this.state.bad}
-          </StatsInfoItem>
-          <StatsInfoItem key={crypto.randomUUID()}>
-            Total: {this.state.good + this.state.neutral + this.state.bad}
-          </StatsInfoItem>
-          <StatsInfoItem key={crypto.randomUUID()}>
-            Positive Feedback:
-            {this.total !== 0
-              ? ' ' + ((this.state.good / this.total) * 100).toFixed(0) + ' %'
-              : ' No feedback'}
-          </StatsInfoItem>
-        </StatsInfoList>
+        <h2>Statistics</h2>
+        <div>
+          {this.total > 0 ? (
+            <StatsInfoList key={crypto.randomUUID()}>
+              <StatsInfoItem key={crypto.randomUUID()}>
+                Goog: {this.state.good}
+              </StatsInfoItem>
+              <StatsInfoItem key={crypto.randomUUID()}>
+                Neutral: {this.state.neutral}
+              </StatsInfoItem>
+              <StatsInfoItem key={crypto.randomUUID()}>
+                Bad: {this.state.bad}
+              </StatsInfoItem>
+              <StatsInfoItem key={crypto.randomUUID()}>
+                Total: {this.state.good + this.state.neutral + this.state.bad}
+              </StatsInfoItem>
+              <StatsInfoItem key={crypto.randomUUID()}>
+                Positive Feedback:
+                {((this.state.good / this.total) * 100).toFixed(0) + '%'}
+              </StatsInfoItem>
+            </StatsInfoList>
+          ) : (
+            <h3>No feedback</h3>
+          )}
+        </div>
       </>
     );
   }
