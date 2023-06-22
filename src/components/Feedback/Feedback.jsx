@@ -12,75 +12,46 @@ export class Feedback extends Component {
     neutral: 0,
     bad: 0,
   };
-  total = 0;
-  leaveGoodReview = () => {
-    this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-    this.total += 1;
+
+  leaveAnyFeedback = key => {
+    this.setState(prevState => ({ [key]: prevState[key] + 1 }));
   };
-  leaveNeutralReview = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-    this.total += 1;
-  };
-  leaveBadReview = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
-    }));
-    this.total += 1;
+  countTonalFeedback = () => {
+    return Object.values(this.state).reduce((acc, el) => acc + el, 0);
   };
 
   render() {
+    const total = this.countTonalFeedback();
     return (
       <>
         <FlexWrapper key={crypto.randomUUID()}>
-          <StyledButton
-            key={crypto.randomUUID()}
-            onClick={() => {
-              this.leaveGoodReview();
-              console.log(1);
-            }}
-          >
-            Good
-          </StyledButton>
-          <StyledButton
-            key={crypto.randomUUID()}
-            onClick={() => {
-              this.leaveNeutralReview();
-            }}
-          >
-            Neutral
-          </StyledButton>
-          <StyledButton
-            key={crypto.randomUUID()}
-            onClick={() => {
-              this.leaveBadReview();
-            }}
-          >
-            Bad
-          </StyledButton>
+          {Object.keys(this.state).map(btn => (
+            <StyledButton
+              key={btn}
+              type="button"
+              onClick={() => {
+                this.leaveAnyFeedback(btn);
+              }}
+            >
+              {btn}
+            </StyledButton>
+          ))}
         </FlexWrapper>
         <h2>Statistics</h2>
         <div>
-          {this.total > 0 ? (
+          {total > 0 ? (
             <StatsInfoList key={crypto.randomUUID()}>
+              {Object.entries(this.state).map(([key, value]) => (
+                <StatsInfoItem>
+                  {key}: {value}
+                </StatsInfoItem>
+              ))}
               <StatsInfoItem key={crypto.randomUUID()}>
-                Goog: {this.state.good}
-              </StatsInfoItem>
-              <StatsInfoItem key={crypto.randomUUID()}>
-                Neutral: {this.state.neutral}
-              </StatsInfoItem>
-              <StatsInfoItem key={crypto.randomUUID()}>
-                Bad: {this.state.bad}
-              </StatsInfoItem>
-              <StatsInfoItem key={crypto.randomUUID()}>
-                Total: {this.state.good + this.state.neutral + this.state.bad}
+                Total: {total}
               </StatsInfoItem>
               <StatsInfoItem key={crypto.randomUUID()}>
                 Positive Feedback:
-                {((this.state.good / this.total) * 100).toFixed(0) + '%'}
+                {' ' + ((this.state.good / total) * 100).toFixed(0) + '%'}
               </StatsInfoItem>
             </StatsInfoList>
           ) : (
