@@ -5,6 +5,9 @@ import {
   StatsInfoList,
   StyledButton,
 } from './Feedback.styled';
+import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
+import { Statistics } from 'components/Statistics/Statistics';
+import { Notification } from 'components/Notification/Notification';
 
 export class Feedback extends Component {
   state = {
@@ -25,37 +28,28 @@ export class Feedback extends Component {
     return (
       <>
         <FlexWrapper key={crypto.randomUUID()}>
-          {Object.keys(this.state).map(btn => (
-            <StyledButton
-              key={btn}
-              type="button"
-              onClick={() => {
-                this.leaveAnyFeedback(btn);
-              }}
-            >
-              {btn}
-            </StyledButton>
-          ))}
+          <FeedbackOptions
+            key={crypto.randomUUID()}
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.leaveAnyFeedback}
+          />
         </FlexWrapper>
         <h2>Statistics</h2>
         <div>
           {total > 0 ? (
-            <StatsInfoList key={crypto.randomUUID()}>
-              {Object.entries(this.state).map(([key, value]) => (
-                <StatsInfoItem>
-                  {key}: {value}
-                </StatsInfoItem>
-              ))}
-              <StatsInfoItem key={crypto.randomUUID()}>
-                Total: {total}
-              </StatsInfoItem>
-              <StatsInfoItem key={crypto.randomUUID()}>
-                Positive Feedback:
-                {' ' + ((this.state.good / total) * 100).toFixed(0) + '%'}
-              </StatsInfoItem>
-            </StatsInfoList>
+            <>
+              <Statistics
+                good={this.state.good}
+                neutral={this.state.neutral}
+                bad={this.state.bad}
+                total={total}
+                positivePercentage={
+                  ' ' + ((this.state.good / total) * 100).toFixed(0) + '%'
+                }
+              />
+            </>
           ) : (
-            <h3>No feedback</h3>
+            <Notification />
           )}
         </div>
       </>
