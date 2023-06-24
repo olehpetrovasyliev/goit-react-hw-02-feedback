@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-import { Children } from 'react';
-
 export const Section = ({ title, children }) => {
   return (
     <section>
