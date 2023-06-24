@@ -1,4 +1,4 @@
-import { FlexWrapper } from 'components/Feedback/Feedback.styled';
+import { FlexWrapper } from 'components/Flex/Flex.styled';
 import { StyledFeedbackButton } from './FeedbackOptions.styled';
 import propTypes from 'prop-types';
 
